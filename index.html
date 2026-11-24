@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI FBI — نگهبان مستقل ایجنت‌ها و اسکریپت‌های هوش مصنوعی | Ali Kouhzardi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-obsidian: #080c12;
+      --bg-elevated: #0f1622;
+      --bg-card: #131c2b;
+      --bg-card-hover: #182336;
+      --border-subtle: rgba(148, 163, 184, 0.14);
+      --border-gold: rgba(231, 158, 41, 0.36);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --gold: #e79e29;
+      --gold-soft: rgba(231, 158, 41, 0.14);
+      --emerald: #10b981;
+      --emerald-soft: rgba(16, 185, 129, 0.14);
+      --crimson: #ef4444;
+      --crimson-soft: rgba(239, 68, 68, 0.14);
+      --shadow-card: 0 18px 45px rgba(0, 0, 0, 0.42);
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Vazirmatn', 'Inter', system-ui, -apple-system, sans-serif;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(231, 158, 41, 0.11), transparent 36%),
+        radial-gradient(circle at 85% 18%, rgba(16, 185, 129, 0.09), transparent 38%),
+        var(--bg-obsidian);
+      color: var(--text-primary);
+      line-height: 1.75;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body[dir="ltr"] {
+      font-family: 'Inter', 'Vazirmatn', system-ui, -apple-system, sans-serif;
+    }
+
+    .container {
+      width: min(1160px, 92%);
+      margin: 0 auto;
+    }
+
+    /* Navbar */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      background: rgba(8, 12, 18, 0.78);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+
+    .shield-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(145deg, rgba(231, 158, 41, 0.22), rgba(16, 185, 129, 0.14));
+      border: 1px solid var(--border-gold);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 0 24px rgba(231, 158, 41, 0.16);
+    }
+
+    .brand-title {
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: 0.3px;
+    }
+
+    .brand-sub {
+      font-size: 0.76rem;
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.94rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .lang-btn {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .lang-btn:hover {
+      border-color: var(--border-gold);
+      background: var(--bg-card-hover);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 0.94rem;
+      font-weight: 700;
+      text-decoration: none;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), #f5b942);
+      color: #0b0f17;
+      box-shadow: 0 10px 26px rgba(231, 158, 41, 0.28);
+    }
+
+    .btn-secondary {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border-color: var(--border-subtle);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--border-gold);
+      background: var(--bg-card-hover);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 68px 0 48px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: var(--emerald-soft);
+      border: 1px solid rgba(16, 185, 129, 0.28);
+      color: #6ee7b7;
+      font-size: 0.84rem;
+      font-weight: 600;
+      margin-bottom: 18px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--emerald);
+      box-shadow: 0 0 10px var(--emerald);
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 4vw, 3.15rem);
+      line-height: 1.24;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, #ffd166, var(--gold), var(--emerald));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      color: var(--text-secondary);
+      font-size: 1.04rem;
+      max-width: 620px;
+      margin-bottom: 26px;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+    }
+
+    .hero-meta strong {
+      color: var(--text-primary);
+    }
+
+    /* Console Preview Card */
+    .console-card {
+      background: linear-gradient(180deg, rgba(19, 28, 43, 0.96), rgba(12, 18, 29, 0.98));
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .console-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 14px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .console-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .status-chip {
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--gold-soft);
+      color: #fcd34d;
+      border: 1px solid var(--border-gold);
+    }
+
+    .event-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .event-item {
+      background: rgba(8, 12, 18, 0.65);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+    }
+
+    .event-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 4px;
+      font-size: 0.86rem;
+      font-weight: 700;
+    }
+
+    .tag-crit {
+      color: #fca5a5;
+      background: var(--crimson-soft);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+    }
+
+    .tag-ok {
+      color: #6ee7b7;
+      background: var(--emerald-soft);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+    }
+
+    .event-desc {
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+    }
+
+    /* Sections */
+    section {
+      padding: 64px 0;
+    }
+
+    .section-header {
+      max-width: 680px;
+      margin-bottom: 36px;
+    }
+
+    .section-kicker {
+      color: var(--gold);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.55rem, 3vw, 2.2rem);
+      line-height: 1.3;
+      margin-bottom: 10px;
+    }
+
+    .section-header p {
+      color: var(--text-secondary);
+      font-size: 0.98rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      box-shadow: var(--shadow-card);
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: var(--border-gold);
+      background: var(--bg-card-hover);
+    }
+
+    .icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: var(--gold-soft);
+      border: 1px solid var(--border-gold);
+      color: var(--gold);
+      font-weight: 800;
+      font-size: 1.1rem;
+      margin-bottom: 16px;
+    }
+
+    .card h3 {
+      font-size: 1.08rem;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+    }
+
+    /* Profiles & Downloads */
+    .split-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .profile-badge {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+
+    .p-dev { background: var(--emerald-soft); color: #6ee7b7; }
+    .p-bal { background: var(--gold-soft); color: #fcd34d; }
+    .p-str { background: var(--crimson-soft); color: #fca5a5; }
+
+    .download-box {
+      background: linear-gradient(145deg, rgba(19, 28, 43, 0.96), rgba(15, 23, 38, 0.96));
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 28px;
+      align-items: center;
+      box-shadow: var(--shadow-card);
+    }
+
+    .download-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .file-note {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Scope Notice */
+    .scope-box {
+      background: rgba(15, 22, 34, 0.88);
+      border: 1px solid var(--border-subtle);
+      border-inline-start: 4px solid var(--gold);
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+    }
+
+    .scope-box strong {
+      color: var(--text-primary);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: 28px 0 40px;
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    @media (max-width: 920px) {
+      .hero-grid,
+      .grid-3,
+      .split-grid,
+      .download-box {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body dir="rtl">
+  <header>
+    <div class="container nav">
+      <a href="#" class="brand">
+        <div class="shield-badge" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e79e29" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title">AI FBI</div>
+          <div class="brand-sub" data-i18n="brandSub">ساخته‌شده توسط Ali Kouhzardi</div>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#features" data-i18n="navFeatures">قابلیت‌ها</a></li>
+        <li><a href="#profiles" data-i18n="navProfiles">پروفایل‌ها</a></li>
+        <li><a href="#download" data-i18n="navDownload">دانلود ویندوز</a></li>
+        <li><a href="#scope" data-i18n="navScope">محدوده امنیتی</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button id="langToggle" class="lang-btn" type="button">English (US)</button>
+        <a href="#download" class="btn btn-primary" data-i18n="navCta">دریافت نسخه ویندوز</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="pill">
+            <span class="dot"></span>
+            <span data-i18n="heroPill">نگهبان مستقل دسکتاپ برای ایجنت‌ها و اسکریپت‌های AI</span>
+          </div>
+          <h1 data-i18n="heroTitle">
+            مراقب رفتار ایجنت‌های هوش مصنوعی باشید؛ <span>قبل از اینکه فاجعه بسازند</span>
+          </h1>
+          <p data-i18n="heroDesc">
+            نرم‌افزار مستقل دسکتاپ AI FBI بدون وابستگی به محیط کدنویسی، اسکریپت‌ها، فایل‌ها، پرامپت‌ها و پروسه‌های مشکوک را اسکن، امتیازدهی و در صورت نیاز قرنطینه می‌کند؛ همراه با گزارش‌گیری JSON/HTML و پشتیبانی از ۴ زبان.
+          </p>
+          <div class="hero-cta">
+            <a href="#download" class="btn btn-primary" data-i18n="ctaPrimary">دانلود نصب‌کننده ویندوز</a>
+            <a href="#features" class="btn btn-secondary" data-i18n="ctaSecondary">مشاهده قابلیت‌ها</a>
+          </div>
+          <div class="hero-meta">
+            <div><span data-i18n="metaDevLabel">توسعه‌دهنده:</span> <strong>Ali Kouhzardi</strong></div>
+            <div><span data-i18n="metaLangLabel">زبان‌ها:</span> <strong>فارسی، انگلیسی، روسی، چینی</strong></div>
+            <div><span data-i18n="metaPlatformLabel">پلتفرم اصلی:</span> <strong>Windows (.exe / Setup)</strong></div>
+          </div>
+        </div>
+
+        <aside class="console-card" aria-label="نمونه وضعیت زنده AI FBI">
+          <div class="console-top">
+            <div class="console-title">
+              <span class="dot"></span>
+              <span data-i18n="consoleTitle">وضعیت نگهبان — AI FBI v1.0.0</span>
+            </div>
+            <span class="status-chip" data-i18n="consoleMode">Balanced Guard</span>
+          </div>
+          <div class="event-list">
+            <div class="event-item">
+              <div class="event-head">
+                <span data-i18n="ev1Title">اسکن اسکریپت و پرامپت</span>
+                <span class="tag-crit">Risk 88 · Quarantined</span>
+              </div>
+              <div class="event-desc" data-i18n="ev1Desc">تلاش برای خواندن فایل کلیدها و اجرای دستور مخرب شناسایی و به قرنطینه منتقل شد.</div>
+            </div>
+            <div class="event-item">
+              <div class="event-head">
+                <span data-i18n="ev2Title">پایش فایل‌ها و لاگ رویدادها</span>
+                <span class="tag-ok">Active · Audited</span>
+              </div>
+              <div class="event-desc" data-i18n="ev2Desc">تغییرات مسیرهای حساس ثبت شد و گزارش امنیتی با فرمت JSON/HTML آماده است.</div>
+            </div>
+            <div class="event-item">
+              <div class="event-head">
+                <span data-i18n="ev3Title">مدیریت قرنطینه و بازیابی</span>
+                <span class="tag-ok" data-i18n="ev3Tag">Restore / Delete</span>
+              </div>
+              <div class="event-desc" data-i18n="ev3Desc">امکان بررسی، بازگردانی فایل‌های سالم یا حذف قطعی موارد مشکوک با یک کلیک.</div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-kicker" data-i18n="featKicker">قابلیت‌های هسته‌ای</span>
+          <h2 data-i18n="featTitle">همه‌چیز برای کنترل و بررسی ایمن‌تر فعالیت‌های AI</h2>
+          <p data-i18n="featSub">طراحی‌شده به‌صورت ماژولار با امتیازدهی وزن‌دار، قرنطینه امن و رابط کاربری چهارزبانه.</p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <div class="icon-box">01</div>
+            <h3 data-i18n="f1Title">اسکنر هوشمند فایل، کد و پرامپت</h3>
+            <p data-i18n="f1Desc">بررسی فایل‌ها، پوشه‌ها و متن‌ها برای تشخیص کلیدهای فاش‌شده، دستورهای خطرناک و الگوهای Prompt Injection با کاهش هشدارهای کاذب.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon-box">02</div>
+            <h3 data-i18n="f2Title">قرنطینه، بازیابی و حذف ایمن</h3>
+            <p data-i18n="f2Desc">انتقال آیتم‌های مشکوک به محیط قرنطینه همراه با متادیتا، امکان بازگردانی در صورت نیاز یا حذف دائمی آن‌ها.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon-box">03</div>
+            <h3 data-i18n="f3Title">پایش پروسه‌ها، شبکه و فایل‌ها</h3>
+            <p data-i18n="f3Desc">رصد پروسه‌های در حال اجرا، اتصالات خروجی و تغییرات مسیرهای حساس به همراه ثبت لاگ محلی رویدادها.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon-box">04</div>
+            <h3 data-i18n="f4Title">گزارش‌گیری JSON و HTML</h3>
+            <p data-i18n="f4Desc">خروجی گرفتن از نتایج ممیزی امنیتی و اسکن‌ها در قالب گزارش‌های ساخت‌یافته با اعتبارنامه‌ی Ali Kouhzardi.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon-box">05</div>
+            <h3 data-i18n="f5Title">قوانین سفارشی و اسکن زمان‌بندی‌شده</h3>
+            <p data-i18n="f5Desc">تعریف قوانین دلخواه، مدیریت حالت‌های نسخه و اجرای اسکن‌های دوره‌ای بر اساس نیاز کاری شما.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon-box">06</div>
+            <h3 data-i18n="f6Title">رابط کاربری ۴ زبانه و صفحه About</h3>
+            <p data-i18n="f6Desc">پشتیبانی از فارسی، انگلیسی، روسی و چینی به همراه بخش About شامل معرفی قابلیت‌ها و نام سازنده Ali Kouhzardi.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Profiles -->
+    <section id="profiles">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-kicker" data-i18n="profKicker">پروفایل‌های امنیتی</span>
+          <h2 data-i18n="profTitle">حساسیت نظارت را متناسب با محیط خود تنظیم کنید</h2>
+          <p data-i18n="profSub">بین توسعه روزمره بی‌دغدغه و حساسیت بالا برای اسکریپت‌های ناشناس جابه‌جا شوید.</p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <span class="profile-badge p-dev">Developer Safe</span>
+            <h3 data-i18n="p1Title">حالت امن توسعه‌دهنده</h3>
+            <p data-i18n="p1Desc">حداقل مزاحمت در کدنویسی روزمره با تمرکز بر خطاها و نشت‌های بحرانی و نمونه‌های آزمایشی امن.</p>
+          </article>
+
+          <article class="card">
+            <span class="profile-badge p-bal">Balanced Guard</span>
+            <h3 data-i18n="p2Title">حالت متعادل (پیشنهادی)</h3>
+            <p data-i18n="p2Desc">تعادل مناسب بین دقت تشخیص، سرعت و هشداردهی به موقع برای کار روزانه با ایجنت‌ها و ابزارها.</p>
+          </article>
+
+          <article class="card">
+            <span class="profile-badge p-str">Strict Lockdown</span>
+            <h3 data-i18n="p3Title">حالت سخت‌گیرانه</h3>
+            <p data-i18n="p3Desc">حداکثر حساسیت برای بررسی اسکریپت‌ها و ورودی‌های مشکوک پیش از اعتماد یا اجرای آن‌ها.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Download -->
+    <section id="download">
+      <div class="container">
+        <div class="download-box">
+          <div>
+            <span class="section-kicker" data-i18n="dlKicker">نسخه دسکتاپ ویندوز</span>
+            <h2 data-i18n="dlTitle" style="font-size: clamp(1.5rem, 2.8vw, 2.05rem); margin-bottom: 10px;">
+              دانلود AI FBI برای ویندوز
+            </h2>
+            <p data-i18n="dlDesc" style="color: var(--text-secondary);">
+              همراه با فایل نصبی استاندارد ویندوز (ساخته‌شده با Inno Setup) و نسخه اجرایی مستقل برای تست سریع. سازنده: <strong>Ali Kouhzardi</strong>.
+            </p>
+            <div class="file-note" data-i18n="dlNote">
+              فایل‌های خروجی در مسیر پروژه: dist/AI_FBI_Installer.exe و dist/AI FBI.exe
+            </div>
+          </div>
+
+          <div class="download-actions">
+            <a href="dist/AI_FBI_Installer.exe" class="btn btn-primary" download data-i18n="dlBtnSetup">
+              دانلود نصب‌کننده (AI_FBI_Installer.exe)
+            </a>
+            <a href="dist/AI FBI.exe" class="btn btn-secondary" download data-i18n="dlBtnExe">
+              دانلود نسخه اجرایی (AI FBI.exe)
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Security Scope -->
+    <section id="scope">
+      <div class="container">
+        <div class="scope-box" data-i18n="scopeText">
+          <strong>محدوده امنیتی شفاف:</strong> AI FBI یک ابزار کمکی و اسکنر/مانیتور محلی مبتنی بر قواعد و امتیازدهی وزن‌دار است و جایگزین آنتی‌ویروس‌های دارای گواهی یا فایروال سطح کرنل سیستم‌عامل محسوب نمی‌شود. حالت سخت‌گیرانه حساسیت پایش را افزایش می‌دهد اما کل سیستم‌عامل را قفل نمی‌کند؛ فعالیت شبکه گزارش می‌شود و محافظت از خود برنامه در سطح بهترین تلاش (best-effort) انجام می‌گیرد.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>
+        <strong>AI FBI</strong> — <span data-i18n="footerDev">توسعه‌یافته توسط Ali Kouhzardi</span>
+      </div>
+      <div data-i18n="footerNote">
+        پشتیبانی از فارسی، انگلیسی، روسی و چینی · گزارش‌گیری امنیتی و قرنطینه محلی
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const translations = {
+      fa: {
+        langBtn: "English (US)",
+        brandSub: "ساخته‌شده توسط Ali Kouhzardi",
+        navFeatures: "قابلیت‌ها",
+        navProfiles: "پروفایل‌ها",
+        navDownload: "دانلود ویندوز",
+        navScope: "محدوده امنیتی",
+        navCta: "دریافت نسخه ویندوز",
+        heroPill: "نگهبان مستقل دسکتاپ برای ایجنت‌ها و اسکریپت‌های AI",
+        heroTitle: "مراقب رفتار ایجنت‌های هوش مصنوعی باشید؛ <span>قبل از اینکه فاجعه بسازند</span>",
+        heroDesc: "نرم‌افزار مستقل دسکتاپ AI FBI بدون وابستگی به محیط کدنویسی، اسکریپت‌ها، فایل‌ها، پرامپت‌ها و پروسه‌های مشکوک را اسکن، امتیازدهی و در صورت نیاز قرنطینه می‌کند؛ همراه با گزارش‌گیری JSON/HTML و پشتیبانی از ۴ زبان.",
+        ctaPrimary: "دانلود نصب‌کننده ویندوز",
+        ctaSecondary: "مشاهده قابلیت‌ها",
+        metaDevLabel: "توسعه‌دهنده:",
+        metaLangLabel: "زبان‌ها:",
+        metaPlatformLabel: "پلتفرم اصلی:",
+        consoleTitle: "وضعیت نگهبان — AI FBI v1.0.0",
+        consoleMode: "Balanced Guard",
+        ev1Title: "اسکن اسکریپت و پرامپت",
+        ev1Desc: "تلاش برای خواندن فایل کلیدها و اجرای دستور مخرب شناسایی و به قرنطینه منتقل شد.",
+        ev2Title: "پایش فایل‌ها و لاگ رویدادها",
+        ev2Desc: "تغییرات مسیرهای حساس ثبت شد و گزارش امنیتی با فرمت JSON/HTML آماده است.",
+        ev3Title: "مدیریت قرنطینه و بازیابی",
+        ev3Tag: "Restore / Delete",
+        ev3Desc: "امکان بررسی، بازگردانی فایل‌های سالم یا حذف قطعی موارد مشکوک با یک کلیک.",
+        featKicker: "قابلیت‌های هسته‌ای",
+        featTitle: "همه‌چیز برای کنترل و بررسی ایمن‌تر فعالیت‌های AI",
+        featSub: "طراحی‌شده به‌صورت ماژولار با امتیازدهی وزن‌دار، قرنطینه امن و رابط کاربری چهارزبانه.",
+        f1Title: "اسکنر هوشمند فایل، کد و پرامپت",
+        f1Desc: "بررسی فایل‌ها، پوشه‌ها و متن‌ها برای تشخیص کلیدهای فاش‌شده، دستورهای خطرناک و الگوهای Prompt Injection با کاهش هشدارهای کاذب.",
+        f2Title: "قرنطینه، بازیابی و حذف ایمن",
+        f2Desc: "انتقال آیتم‌های مشکوک به محیط قرنطینه همراه با متادیتا، امکان بازگردانی در صورت نیاز یا حذف دائمی آن‌ها.",
+        f3Title: "پایش پروسه‌ها، شبکه و فایل‌ها",
+        f3Desc: "رصد پروسه‌های در حال اجرا، اتصالات خروجی و تغییرات مسیرهای حساس به همراه ثبت لاگ محلی رویدادها.",
+        f4Title: "گزارش‌گیری JSON و HTML",
+        f4Desc: "خروجی گرفتن از نتایج ممیزی امنیتی و اسکن‌ها در قالب گزارش‌های ساخت‌یافته با اعتبارنامه‌ی Ali Kouhzardi.",
+        f5Title: "قوانین سفارشی و اسکن زمان‌بندی‌شده",
+        f5Desc: "تعریف قوانین دلخواه، مدیریت حالت‌های نسخه و اجرای اسکن‌های دوره‌ای بر اساس نیاز کاری شما.",
+        f6Title: "رابط کاربری ۴ زبانه و صفحه About",
+        f6Desc: "پشتیبانی از فارسی، انگلیسی، روسی و چینی به همراه بخش About شامل معرفی قابلیت‌ها و نام سازنده Ali Kouhzardi.",
+        profKicker: "پروفایل‌های امنیتی",
+        profTitle: "حساسیت نظارت را متناسب با محیط خود تنظیم کنید",
+        profSub: "بین توسعه روزمره بی‌دغدغه و حساسیت بالا برای اسکریپت‌های ناشناس جابه‌جا شوید.",
+        p1Title: "حالت امن توسعه‌دهنده",
+        p1Desc: "حداقل مزاحمت در کدنویسی روزمره با تمرکز بر خطاها و نشت‌های بحرانی و نمونه‌های آزمایشی امن.",
+        p2Title: "حالت متعادل (پیشنهادی)",
+        p2Desc: "تعادل مناسب بین دقت تشخیص، سرعت و هشداردهی به موقع برای کار روزانه با ایجنت‌ها و ابزارها.",
+        p3Title: "حالت سخت‌گیرانه",
+        p3Desc: "حداکثر حساسیت برای بررسی اسکریپت‌ها و ورودی‌های مشکوک پیش از اعتماد یا اجرای آن‌ها.",
+        dlKicker: "نسخه دسکتاپ ویندوز",
+        dlTitle: "دانلود AI FBI برای ویندوز",
+        dlDesc: "همراه با فایل نصبی استاندارد ویندوز (ساخته‌شده با Inno Setup) و نسخه اجرایی مستقل برای تست سریع. سازنده: <strong>Ali Kouhzardi</strong>.",
+        dlNote: "فایل‌های خروجی در مسیر پروژه: dist/AI_FBI_Installer.exe و dist/AI FBI.exe",
+        dlBtnSetup: "دانلود نصب‌کننده (AI_FBI_Installer.exe)",
+        dlBtnExe: "دانلود نسخه اجرایی (AI FBI.exe)",
+        scopeText: "<strong>محدوده امنیتی شفاف:</strong> AI FBI یک ابزار کمکی و اسکنر/مانیتور محلی مبتنی بر قواعد و امتیازدهی وزن‌دار است و جایگزین آنتی‌ویروس‌های دارای گواهی یا فایروال سطح کرنل سیستم‌عامل محسوب نمی‌شود. حالت سخت‌گیرانه حساسیت پایش را افزایش می‌دهد اما کل سیستم‌عامل را قفل نمی‌کند؛ فعالیت شبکه گزارش می‌شود و محافظت از خود برنامه در سطح بهترین تلاش (best-effort) انجام می‌گیرد.",
+        footerDev: "توسعه‌یافته توسط Ali Kouhzardi",
+        footerNote: "پشتیبانی از فارسی، انگلیسی، روسی و چینی · گزارش‌گیری امنیتی و قرنطینه محلی"
+      },
+      en: {
+        langBtn: "فارسی (RTL)",
+        brandSub: "Developed by Ali Kouhzardi",
+        navFeatures: "Features",
+        navProfiles: "Profiles",
+        navDownload: "Windows Download",
+        navScope: "Security Scope",
+        navCta: "Get Windows Build",
+        heroPill: "Standalone Desktop Guard for AI Agents & Scripts",
+        heroTitle: "Watch AI agents closely; <span>before risky actions happen</span>",
+        heroDesc: "AI FBI runs independently on desktop—scanning prompts, scripts, files, and processes with confidence-weighted rules, quarantine & restore, JSON/HTML audit exports, and 4-language support.",
+        ctaPrimary: "Download Windows Installer",
+        ctaSecondary: "Explore Features",
+        metaDevLabel: "Developer:",
+        metaLangLabel: "Languages:",
+        metaPlatformLabel: "Primary Target:",
+        consoleTitle: "Guardian Live Status — AI FBI v1.0.0",
+        consoleMode: "Balanced Guard",
+        ev1Title: "Script & Prompt Scan",
+        ev1Desc: "Suspicious secret access and destructive command pattern flagged and moved to Quarantine.",
+        ev2Title: "File Watch & Audit Log",
+        ev2Desc: "Protected path changes recorded; structured JSON/HTML security report ready.",
+        ev3Title: "Quarantine & Recovery",
+        ev3Tag: "Restore / Delete",
+        ev3Desc: "Inspect quarantined items, restore false positives, or permanently delete threats.",
+        featKicker: "Core Capabilities",
+        featTitle: "Practical protection & inspection for AI-assisted workflows",
+        featSub: "Modular architecture with confidence-weighted rules, safe quarantine, and 4-language UI.",
+        f1Title: "File, Code & Prompt Scanner",
+        f1Desc: "Scan files, folders, and text for exposed secrets, risky commands, and prompt-injection patterns with lower false positives.",
+        f2Title: "Quarantine, Restore & Delete",
+        f2Desc: "Isolate suspicious items with metadata tracking, restore safe items when needed, or delete them permanently.",
+        f3Title: "Process, Network & File Monitoring",
+        f3Desc: "Track active processes, outbound connections, and sensitive file changes alongside local audit logging.",
+        f4Title: "JSON & HTML Audit Exports",
+        f4Desc: "Generate structured security audit and scan reports credited to Ali Kouhzardi.",
+        f5Title: "Custom Rules & Scheduled Scans",
+        f5Desc: "Configure custom detection rules, edition controls, and scheduled scans tailored to your workflow.",
+        f6Title: "4-Language UI & About Screen",
+        f6Desc: "Supports English, Persian, Russian, and Chinese with an About tab crediting Ali Kouhzardi and listing capabilities.",
+        profKicker: "Security Profiles",
+        profTitle: "Tune sensitivity to match your environment",
+        profSub: "Switch between low-noise development and stricter inspection for untrusted scripts.",
+        p1Title: "Developer Safe",
+        p1Desc: "Minimal friction during active development while focusing on critical leaks, hazards, and safe test fixtures.",
+        p2Title: "Balanced Guard (Default)",
+        p2Desc: "Balanced detection accuracy, responsiveness, and timely alerts for everyday AI agent workflows.",
+        p3Title: "Strict Lockdown",
+        p3Desc: "Higher inspection sensitivity for reviewing untrusted scripts and prompts before relying on them.",
+        dlKicker: "Windows Desktop Release",
+        dlTitle: "Download AI FBI for Windows",
+        dlDesc: "Includes the Inno Setup Windows installer and standalone executable for quick testing. Created by <strong>Ali Kouhzardi</strong>.",
+        dlNote: "Build outputs in project folder: dist/AI_FBI_Installer.exe & dist/AI FBI.exe",
+        dlBtnSetup: "Download Installer (AI_FBI_Installer.exe)",
+        dlBtnExe: "Download Executable (AI FBI.exe)",
+        scopeText: "<strong>Security Scope:</strong> AI FBI is a local rule- and confidence-weighted monitoring/scanning utility—not a certified antivirus or kernel-level firewall. Strict mode increases monitoring sensitivity rather than locking down the OS; network activity is reported rather than firewall-blocked, and self-protection is best-effort.",
+        footerDev: "Developed by Ali Kouhzardi",
+        footerNote: "English, Persian, Russian & Chinese UI · Local Audit Exports & Quarantine"
+      }
+    };
+
+    let currentLang = "fa";
+    const toggleBtn = document.getElementById("langToggle");
+
+    function applyLanguage(lang) {
+      currentLang = lang;
+      const dict = translations[lang];
+      const isFa = lang === "fa";
+
+      document.documentElement.lang = isFa ? "fa" : "en";
+      document.documentElement.dir = isFa ? "rtl" : "ltr";
+      document.body.dir = isFa ? "rtl" : "ltr";
+      toggleBtn.textContent = dict.langBtn;
+
+      document.querySelectorAll("[data-i18n]").forEach((el) => {
+        const key = el.getAttribute("data-i18n");
+        if (dict[key] !== undefined) {
+          el.innerHTML = dict[key];
+        }
+      });
+    }
+
+    toggleBtn.addEventListener("click", () => {
+      applyLanguage(currentLang === "fa" ? "en" : "fa");
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+AI FBI - LICENSE AND PRODUCT INFORMATION
+
+Product: AI FBI
+Developer: Ali Kouhzardi
+
+AI FBI is a local-first heuristic security utility. It is provided as-is and
+does not replace a maintained antivirus, endpoint detection product, operating
+system security controls, backups, or a firewall.
+
+Scanning results are indicators, not proof of compromise. Review findings
+before taking action. The software does not execute scanned content.
+
+The optional offline demo and checksum-based activation format are convenience
+features only. A checksum is not a cryptographic signature and does not provide
+tamper-resistant commercial license enforcement.
+
+See README.md in the installation folder for product scope, build instructions,
+and additional limitations.

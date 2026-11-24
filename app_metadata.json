@@ -1,0 +1,6 @@
+{
+  "name": "AI FBI",
+  "version": "1.0.0",
+  "developer": "Ali Kouhzardi",
+  "description": "Local-first heuristic security monitor and scanner with profile-based rules, audit export, and optional Pro tools"
+}
