@@ -459,6 +459,88 @@
       gap: 12px;
     }
 
+    .donate-card {
+      margin-top: 16px;
+      padding: 22px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 22px;
+      background: rgba(15, 22, 34, 0.88);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+    }
+
+    .donate-card h3 {
+      margin-bottom: 6px;
+      font-size: 1.08rem;
+    }
+
+    .donate-card p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .donate-network {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 12px 0 8px;
+      font-size: 0.84rem;
+    }
+
+    .donate-network-label {
+      color: var(--text-muted);
+    }
+
+    .donate-network-value {
+      color: #6ee7b7;
+      font-weight: 700;
+    }
+
+    .donate-address {
+      padding: 10px 12px;
+      direction: ltr;
+      text-align: left;
+      overflow-wrap: anywhere;
+      color: var(--text-primary);
+      background: rgba(11, 15, 23, 0.72);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.84rem;
+      user-select: all;
+    }
+
+    .donate-warning {
+      margin-top: 10px;
+      padding-inline-start: 10px;
+      border-inline-start: 2px solid var(--gold);
+      color: #fcd34d !important;
+    }
+
+    .donate-actions {
+      display: grid;
+      justify-items: start;
+      gap: 8px;
+    }
+
+    .donate-copy-status {
+      min-height: 1.25em;
+      color: #6ee7b7;
+      font-size: 0.82rem;
+    }
+
+    .donate-copy-status.is-error {
+      color: #fca5a5;
+    }
+
+    .donate-copy.is-copied {
+      border-color: #10b981;
+      color: #6ee7b7;
+    }
+
     .file-note {
       font-size: 0.82rem;
       color: var(--text-muted);
@@ -500,7 +582,8 @@
       .hero-grid,
       .grid-3,
       .split-grid,
-      .download-box {
+      .download-box,
+      .donate-card {
         grid-template-columns: 1fr;
       }
 
@@ -694,19 +777,37 @@
               همراه با فایل نصبی استاندارد ویندوز (ساخته‌شده با Inno Setup) و نسخه اجرایی مستقل برای تست سریع. سازنده: <strong>Ali Kouhzardi</strong>.
             </p>
             <div class="file-note" data-i18n="dlNote">
-              فایل‌های خروجی در مسیر پروژه: dist/AI_FBI_Installer.exe و dist/AI FBI.exe
+              دریافت فایل‌ها از آخرین انتشار رسمی GitHub.
             </div>
           </div>
 
           <div class="download-actions">
-            <a href="dist/AI_FBI_Installer.exe" class="btn btn-primary" download data-i18n="dlBtnSetup">
+            <a href="https://github.com/alikouhzardi616/AI-FBI/releases/latest/download/AI_FBI_Installer.exe" class="btn btn-primary" data-i18n="dlBtnSetup">
               دانلود نصب‌کننده (AI_FBI_Installer.exe)
             </a>
-            <a href="dist/AI FBI.exe" class="btn btn-secondary" download data-i18n="dlBtnExe">
+            <a href="https://github.com/alikouhzardi616/AI-FBI/releases/latest/download/AI%20FBI.exe" class="btn btn-secondary" data-i18n="dlBtnExe">
               دانلود نسخه اجرایی (AI FBI.exe)
             </a>
           </div>
         </div>
+
+        <article class="donate-card" aria-labelledby="donateTitle">
+          <div>
+            <span class="section-kicker" data-i18n="donateKicker">حمایت داوطلبانه</span>
+            <h3 id="donateTitle" data-i18n="donateTitle">حمایت از AI FBI</h3>
+            <p data-i18n="donateIntro">کمک مالی کاملاً اختیاری است و هر مبلغی مورد استقبال است.</p>
+            <div class="donate-network">
+              <span class="donate-network-label" data-i18n="donateNetworkLabel">شبکه:</span>
+              <span class="donate-network-value">Solana</span>
+            </div>
+            <div class="donate-address" id="donateAddress" dir="ltr">2w9LCVJbNjuxcKieTPPbq1GhewxzXnSR5xh5KmGrB9YG</div>
+            <p class="donate-warning" data-i18n="donateWarning">فقط از شبکه Solana استفاده کنید؛ ارسال از شبکه‌ای دیگر ممکن است باعث از دست رفتن دائمی دارایی شود.</p>
+          </div>
+          <div class="donate-actions">
+            <button id="copyDonateAddress" class="btn btn-secondary donate-copy" type="button" data-i18n="donateCopy">کپی نشانی</button>
+            <span id="donateCopyStatus" class="donate-copy-status" role="status" aria-live="polite"></span>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -785,9 +886,17 @@
         dlKicker: "نسخه دسکتاپ ویندوز",
         dlTitle: "دانلود AI FBI برای ویندوز",
         dlDesc: "همراه با فایل نصبی استاندارد ویندوز (ساخته‌شده با Inno Setup) و نسخه اجرایی مستقل برای تست سریع. سازنده: <strong>Ali Kouhzardi</strong>.",
-        dlNote: "فایل‌های خروجی در مسیر پروژه: dist/AI_FBI_Installer.exe و dist/AI FBI.exe",
+        dlNote: "فایل‌های نصب‌کننده و اجرایی از آخرین انتشار رسمی GitHub دریافت می‌شوند.",
         dlBtnSetup: "دانلود نصب‌کننده (AI_FBI_Installer.exe)",
         dlBtnExe: "دانلود نسخه اجرایی (AI FBI.exe)",
+        donateKicker: "حمایت داوطلبانه",
+        donateTitle: "حمایت از AI FBI",
+        donateIntro: "کمک مالی کاملاً اختیاری است و هر مبلغی مورد استقبال است.",
+        donateNetworkLabel: "شبکه:",
+        donateCopy: "کپی نشانی",
+        donateCopied: "نشانی کپی شد.",
+        donateCopyFailed: "کپی انجام نشد؛ لطفاً نشانی را دستی انتخاب کنید.",
+        donateWarning: "فقط از شبکه Solana استفاده کنید؛ ارسال از شبکه‌ای دیگر ممکن است باعث از دست رفتن دائمی دارایی شود.",
         scopeText: "<strong>محدوده امنیتی شفاف:</strong> AI FBI یک ابزار کمکی و اسکنر/مانیتور محلی مبتنی بر قواعد و امتیازدهی وزن‌دار است و جایگزین آنتی‌ویروس‌های دارای گواهی یا فایروال سطح کرنل سیستم‌عامل محسوب نمی‌شود. حالت سخت‌گیرانه حساسیت پایش را افزایش می‌دهد اما کل سیستم‌عامل را قفل نمی‌کند؛ فعالیت شبکه گزارش می‌شود و محافظت از خود برنامه در سطح بهترین تلاش (best-effort) انجام می‌گیرد.",
         footerDev: "توسعه‌یافته توسط Ali Kouhzardi",
         footerNote: "پشتیبانی از فارسی، انگلیسی، روسی و چینی · گزارش‌گیری امنیتی و قرنطینه محلی"
@@ -844,9 +953,17 @@
         dlKicker: "Windows Desktop Release",
         dlTitle: "Download AI FBI for Windows",
         dlDesc: "Includes the Inno Setup Windows installer and standalone executable for quick testing. Created by <strong>Ali Kouhzardi</strong>.",
-        dlNote: "Build outputs in project folder: dist/AI_FBI_Installer.exe & dist/AI FBI.exe",
+        dlNote: "Download the installer and standalone executable from the latest official GitHub release.",
         dlBtnSetup: "Download Installer (AI_FBI_Installer.exe)",
         dlBtnExe: "Download Executable (AI FBI.exe)",
+        donateKicker: "Optional Support",
+        donateTitle: "Support AI FBI",
+        donateIntro: "Donations are optional; contributions of any amount are welcome.",
+        donateNetworkLabel: "Network:",
+        donateCopy: "Copy Address",
+        donateCopied: "Address copied.",
+        donateCopyFailed: "Could not copy. Please select the address manually.",
+        donateWarning: "Send funds ONLY over the Solana network. Sending over another network may result in permanent loss.",
         scopeText: "<strong>Security Scope:</strong> AI FBI is a local rule- and confidence-weighted monitoring/scanning utility—not a certified antivirus or kernel-level firewall. Strict mode increases monitoring sensitivity rather than locking down the OS; network activity is reported rather than firewall-blocked, and self-protection is best-effort.",
         footerDev: "Developed by Ali Kouhzardi",
         footerNote: "English, Persian, Russian & Chinese UI · Local Audit Exports & Quarantine"
@@ -855,6 +972,23 @@
 
     let currentLang = "fa";
     const toggleBtn = document.getElementById("langToggle");
+    const donateAddress = document.getElementById("donateAddress");
+    const copyDonateButton = document.getElementById("copyDonateAddress");
+    const donateCopyStatus = document.getElementById("donateCopyStatus");
+    let copyFeedbackTimer;
+
+    function copyWithFallback(value) {
+      const field = document.createElement("textarea");
+      field.value = value;
+      field.setAttribute("readonly", "");
+      field.style.position = "fixed";
+      field.style.opacity = "0";
+      document.body.appendChild(field);
+      field.select();
+      const copied = document.execCommand("copy");
+      field.remove();
+      return copied;
+    }
 
     function applyLanguage(lang) {
       currentLang = lang;
@@ -872,10 +1006,51 @@
           el.innerHTML = dict[key];
         }
       });
+      donateCopyStatus.textContent = "";
+      donateCopyStatus.classList.remove("is-error");
+      copyDonateButton.classList.remove("is-copied");
+      window.clearTimeout(copyFeedbackTimer);
     }
 
     toggleBtn.addEventListener("click", () => {
       applyLanguage(currentLang === "fa" ? "en" : "fa");
+    });
+
+    copyDonateButton.addEventListener("click", async () => {
+      let copied = false;
+      try {
+        if (window.isSecureContext && navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(donateAddress.textContent.trim());
+          copied = true;
+        }
+      } catch {
+        copied = false;
+      }
+
+      if (!copied) {
+        try {
+          copied = copyWithFallback(donateAddress.textContent.trim());
+        } catch {
+          copied = false;
+        }
+      }
+
+      donateCopyStatus.classList.toggle("is-error", !copied);
+      donateCopyStatus.textContent = copied
+        ? translations[currentLang].donateCopied
+        : translations[currentLang].donateCopyFailed;
+      copyDonateButton.classList.toggle("is-copied", copied);
+      if (copied) {
+        copyDonateButton.textContent = translations[currentLang].donateCopied;
+      }
+
+      window.clearTimeout(copyFeedbackTimer);
+      copyFeedbackTimer = window.setTimeout(() => {
+        donateCopyStatus.textContent = "";
+        donateCopyStatus.classList.remove("is-error");
+        copyDonateButton.classList.remove("is-copied");
+        copyDonateButton.textContent = translations[currentLang].donateCopy;
+      }, 2500);
     });
   </script>
 </body>
